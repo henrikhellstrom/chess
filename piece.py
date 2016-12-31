@@ -21,3 +21,16 @@ class Piece:
             pixel_pos[1] = self.pos[1]*constants.SQUARE_SIZE
             rect = pygame.Rect(pixel_pos[0], pixel_pos[1], constants.SQUARE_SIZE, constants.SQUARE_SIZE)
             surface.blit(self.image, rect)
+
+    # Returns which moves would be possible on an empty board
+    def get_all_moves(self):
+        moves = []
+        return moves
+
+    #Returns which moves is possible considering the board state
+    def get_possible_moves(self, pieces):
+        moves = []
+        return moves
+
+    def move(self, pos):
+        self.pos = pos
