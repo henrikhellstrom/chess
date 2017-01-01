@@ -35,5 +35,11 @@ class Pawn(Piece):
             for move in moves:
                 for piece in pieces:
                     if piece.pos[0] == move[0] and piece.pos[1] == move[1]:
-                        return None
+                        moves_containing_piece.append(move)
+            for move in moves_containing_piece:
+                moves.remove(move)
+        #Prevent pawns from being able to jump over pieces
+        if len(moves) == 1:
+            if abs(moves[0][1] - self.pos[1]) == 2:
+                return None
         return moves
