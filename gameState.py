@@ -19,8 +19,8 @@ class GameState:
             piece.draw(surface)
 
     #Returns possible moves for the selected piece
-    def get_moves(self):
-        if self.selected_piece != None:
+    def get_moves(self, white_turn):
+        if self.selected_piece != None and self.selected_piece.white == white_turn:
             moves = self.selected_piece.get_all_moves()
             other_pieces = self.get_pieces_at_positions(moves)
             possible_moves = self.selected_piece.get_possible_moves(other_pieces)

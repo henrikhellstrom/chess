@@ -6,9 +6,10 @@ class Piece:
     yellow = (255, 255, 0)
 
     #pos should be defined as [x, y] where x and y takes values between 0 and 7
-    def __init__(self, pos):
+    def __init__(self, pos, white):
         self.pos = pos
         self.image = None
+        self.white = white
 
     def draw(self, surface):
         pixel_pos = [0, 0]
