@@ -2,24 +2,25 @@ import pygame
 import math
 import constants
 
-#The Board class represents the chess board.
+#The Board class represents the chess board. It handles the graphical representation of the board and conversion of
+#mouse coordinates to square index.
 class Board:
-    black = 222, 184, 135
-    white = 255, 255, 255
-    red = 255, 0, 0
-    blue = 100, 149, 237
-    selected_square = [0, 0]
 
     def __init__(self):
-        self.highlighted_squares = []
+        self.black = 222, 184, 135
+        self.white = 255, 255, 255
+        self.red = 255, 0, 0
+        self.blue = 100, 149, 237
 
-    #Takes a pixel position as parameter, returns square index position. Also fills selected square with a red color.
-    def select_square(self, pos):
-        self.selected_square[0] = math.floor(pos[0]/constants.SQUARE_SIZE)
-        self.selected_square[1] = math.floor(pos[1]/constants.SQUARE_SIZE)
-        return (self.selected_square[0], self.selected_square[1])
+    #Takes a pixel position as parameter, returns square index position.
+    def get_square(self, pos):
+        ret = [0, 0]
+        ret[0] = math.floor(pos[0]/constants.SQUARE_SIZE)
+        ret[1] = math.floor(pos[1]/constants.SQUARE_SIZE)
+        return ret
 
-    def draw(self, surface):
+    #Draws white and black squares tiled across surface
+    def draw_board(self, surface):
         for x in range(0, 8):
             for y in range(0, 8):
                 rect = pygame.Rect(constants.SQUARE_SIZE*x, constants.SQUARE_SIZE*y, constants.SQUARE_SIZE, constants.SQUARE_SIZE)
@@ -27,11 +28,19 @@ class Board:
                 if x % 2 + y % 2 == 0 or x % 2 + y % 2 == 2:
                     color = self.white
                 pygame.draw.rect(surface, color, rect)
-                if x == self.selected_square[0] and y == self.selected_square[1]:
-                    self.draw_transparent_square(self.selected_square, self.red, surface)
-        if self.highlighted_squares != None:
-            for square in self.highlighted_squares:
+
+    def draw_selected_square(self, surface, selected_square):
+        self.draw_transparent_square(selected_square, self.red, surface)
+
+    def draw_highlighted_squares(self, surface, highlighted_squares):
+        if highlighted_squares != None:
+            for square in highlighted_squares:
                 self.draw_transparent_square(square, self.blue, surface)
+
+    def draw(self, surface, selected_square, highlighted_squares):
+        self.draw_board(surface)
+        self.draw_selected_square(surface, selected_square)
+        self.draw_highlighted_squares(surface, highlighted_squares)
 
     #Draws a square with alpha coding to make it transparent.
     def draw_transparent_square(self, pos, color, surface):
@@ -39,8 +48,3 @@ class Board:
         s.set_alpha(100)
         s.fill(color)
         surface.blit(s, (constants.SQUARE_SIZE * pos[0], constants.SQUARE_SIZE * pos[1]))
-
-
-    #Takes list of positions and sets them to be highlighted squares
-    def highlight_squares(self, positions):
-        self.highlighted_squares = positions

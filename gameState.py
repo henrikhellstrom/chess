@@ -2,10 +2,10 @@ from piece import Piece
 from pawn import Pawn
 
 class GameState:
-    pieces = []
-
     def __init__(self):
+        self.pieces = []
         self.init_pawns()
+        self.selected_piece = None
 
     def init_pawns(self):
         for x in range(0, 8):
@@ -18,13 +18,12 @@ class GameState:
         for piece in self.pieces:
             piece.draw(surface)
 
-    #Returns possible moves for the piece at pos
-    def get_moves(self, pos):
-        piece = self.get_piece_at_pos(pos)
-        if piece != None:
-            moves = piece.get_all_moves()
+    #Returns possible moves for the selected piece
+    def get_moves(self):
+        if self.selected_piece != None:
+            moves = self.selected_piece.get_all_moves()
             other_pieces = self.get_pieces_at_positions(moves)
-            possible_moves = piece.get_possible_moves(other_pieces)
+            possible_moves = self.selected_piece.get_possible_moves(other_pieces)
             return possible_moves
         return None
 
@@ -35,6 +34,7 @@ class GameState:
             piece = self.get_piece_at_pos(pos)
             if piece != None:
                 pieces.append(piece)
+        return pieces
 
     #Returns piece at pos
     def get_piece_at_pos(self, pos):
@@ -42,3 +42,12 @@ class GameState:
             if piece.pos[0] == pos[0] and piece.pos[1] == pos[1]:
                 return piece
         return None
+
+    def select_piece(self, square):
+        self.selected_piece = None
+        for piece in self.pieces:
+            if piece.pos[0] == square[0] and piece.pos[1] == square[1]:
+                self.selected_piece = piece
+
+    def move_selected_piece(self, square):
+        self.selected_piece.move(square)

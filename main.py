@@ -1,26 +1,14 @@
 import pygame
-from board import Board
-from gameState import GameState
+from controller import Controller
 import constants
-
-def handle_mouseclick(board, game_state):
-    mouse_state = pygame.mouse.get_pressed()
-    if mouse_state[0] == True:
-        mouse_pos = pygame.mouse.get_pos()
-        selected_square = board.select_square(mouse_pos)
-        possible_moves = game_state.get_moves(selected_square)
-        board.highlight_squares(possible_moves)
-
 
 if __name__ == "__main__":
     pygame.init()
 
-    board = Board()
-    game_state = GameState()
+    controller = Controller()
     size = width, height = constants.SQUARE_SIZE*8, constants.SQUARE_SIZE*8
     black = 0, 0, 0
     screen = pygame.display.set_mode(size)
-    pieces = []
 
     running = 1
 
@@ -31,11 +19,10 @@ if __name__ == "__main__":
             if event.type == pygame.QUIT:
                 running = 0
             if event.type == pygame.MOUSEBUTTONDOWN:
-                handle_mouseclick(board, game_state)
+                controller.handle_mouseclick()
 
         screen.fill(black)
-        board.draw(screen)
-        game_state.draw_pieces(screen)
+        controller.draw(screen)
         pygame.display.flip()
 
         elapsed_time = pygame.time.get_ticks() - time

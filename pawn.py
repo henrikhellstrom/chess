@@ -27,7 +27,7 @@ class Pawn(Piece):
                 ret.append([self.pos[0], self.pos[1]+2])
         return ret
 
-    # Returns which moves is possible considering the board state
+    # Returns which moves are possible considering the board state
     def get_possible_moves(self, pieces):
         moves = self.get_all_moves()
         if pieces != None:
@@ -35,9 +35,5 @@ class Pawn(Piece):
             for move in moves:
                 for piece in pieces:
                     if piece.pos[0] == move[0] and piece.pos[1] == move[1]:
-                        moves_containing_piece.append(move)
-            #Remove all moves containing a piece from possible moves
-            for move in moves_containing_piece:
-                moves.remove(move)
-
+                        return None
         return moves
