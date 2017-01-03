@@ -1,11 +1,16 @@
 from piece import Piece
 from pawn import Pawn
+from rook import Rook
 
 class GameState:
     def __init__(self):
         self.pieces = []
-        self.init_pawns()
+        self.init_pieces()
         self.selected_piece = None
+
+    def init_pieces(self):
+        self.init_pawns()
+        self.init_rooks()
 
     def init_pawns(self):
         for x in range(0, 8):
@@ -13,6 +18,12 @@ class GameState:
             self.pieces.append(white_pawn)
             black_pawn = Pawn(False, [x, 1])
             self.pieces.append(black_pawn)
+
+    def init_rooks(self):
+        self.pieces.append(Rook(True, [0, 7]))
+        self.pieces.append(Rook(True, [7, 7]))
+        self.pieces.append(Rook(False, [0, 0]))
+        self.pieces.append(Rook(False, [7, 0]))
 
     def draw_pieces(self, surface):
         for piece in self.pieces:
@@ -49,5 +60,9 @@ class GameState:
             if piece.pos[0] == square[0] and piece.pos[1] == square[1]:
                 self.selected_piece = piece
 
+    #Moves the selected piece to square
     def move_selected_piece(self, square):
+        piece_at_target = self.get_piece_at_pos(square)
+        if piece_at_target != None:
+            self.pieces.remove(piece_at_target)
         self.selected_piece.move(square)
