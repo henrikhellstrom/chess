@@ -1,5 +1,6 @@
 from piece import Piece
 import pygame
+import constants
 
 class Pawn(Piece):
     #white is a boolean
@@ -7,9 +8,9 @@ class Pawn(Piece):
     def __init__(self, white, pos):
         self.white = white
         if white == True:
-            self.image = pygame.image.load("white_pawn.png")
+            self.image = pygame.image.load(constants.image_dir + "/white_pawn.png")
         else:
-            self.image = pygame.image.load("black_pawn.png")
+            self.image = pygame.image.load(constants.image_dir + "/black_pawn.png")
         self.pos = pos
 
     #Returns which moves would be possible on an empty board

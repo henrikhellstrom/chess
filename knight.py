@@ -1,5 +1,6 @@
 from piece import Piece
 import pygame
+import constants
 
 class Knight(Piece):
     #white is a boolean
@@ -7,9 +8,9 @@ class Knight(Piece):
     def __init__(self, white, pos):
         self.white = white
         if white == True:
-            self.image = pygame.image.load("white_knight.png")
+            self.image = pygame.image.load(constants.image_dir + "/white_knight.png")
         else:
-            self.image = pygame.image.load("black_knight.png")
+            self.image = pygame.image.load(constants.image_dir + "/black_knight.png")
         self.pos = pos
 
     #Returns which moves would be possible on an empty board
