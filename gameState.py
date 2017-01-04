@@ -2,6 +2,7 @@ from piece import Piece
 from pawn import Pawn
 from rook import Rook
 from knight import Knight
+from bishop import Bishop
 
 class GameState:
     def __init__(self):
@@ -13,6 +14,7 @@ class GameState:
         self.init_pawns()
         self.init_rooks()
         self.init_knights()
+        self.init_bishops()
 
     def init_pawns(self):
         for x in range(0, 8):
@@ -32,6 +34,12 @@ class GameState:
         self.pieces.append(Knight(True, [6, 7]))
         self.pieces.append(Knight(False, [1, 0]))
         self.pieces.append(Knight(False, [6, 0]))
+
+    def init_bishops(self):
+        self.pieces.append(Bishop(True, [2, 7]))
+        self.pieces.append(Bishop(True, [5, 7]))
+        self.pieces.append(Bishop(False, [2, 0]))
+        self.pieces.append(Bishop(False, [5, 0]))
 
     def draw_pieces(self, surface):
         for piece in self.pieces:
