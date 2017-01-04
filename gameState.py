@@ -1,6 +1,7 @@
 from piece import Piece
 from pawn import Pawn
 from rook import Rook
+from knight import Knight
 
 class GameState:
     def __init__(self):
@@ -11,6 +12,7 @@ class GameState:
     def init_pieces(self):
         self.init_pawns()
         self.init_rooks()
+        self.init_knights()
 
     def init_pawns(self):
         for x in range(0, 8):
@@ -24,6 +26,12 @@ class GameState:
         self.pieces.append(Rook(True, [7, 7]))
         self.pieces.append(Rook(False, [0, 0]))
         self.pieces.append(Rook(False, [7, 0]))
+
+    def init_knights(self):
+        self.pieces.append(Knight(True, [1, 7]))
+        self.pieces.append(Knight(True, [6, 7]))
+        self.pieces.append(Knight(False, [1, 0]))
+        self.pieces.append(Knight(False, [6, 0]))
 
     def draw_pieces(self, surface):
         for piece in self.pieces:
