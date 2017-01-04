@@ -1,8 +1,9 @@
-from piece import Piece
-from pawn import Pawn
-from rook import Rook
-from knight import Knight
-from bishop import Bishop
+from piece.bishop import Bishop
+from piece.knight import Knight
+from piece.rook import Rook
+
+from piece.pawn import Pawn
+
 
 class GameState:
     def __init__(self):
