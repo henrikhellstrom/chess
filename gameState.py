@@ -1,7 +1,7 @@
 from piece.bishop import Bishop
 from piece.knight import Knight
 from piece.rook import Rook
-
+from piece.queen import Queen
 from piece.pawn import Pawn
 
 
@@ -16,6 +16,7 @@ class GameState:
         self.init_rooks()
         self.init_knights()
         self.init_bishops()
+        self.init_queens()
 
     def init_pawns(self):
         for x in range(0, 8):
@@ -23,6 +24,10 @@ class GameState:
             self.pieces.append(white_pawn)
             black_pawn = Pawn(False, [x, 1])
             self.pieces.append(black_pawn)
+
+    def init_queens(self):
+        self.pieces.append(Queen(True, [3, 7]))
+        self.pieces.append(Queen(False, [3, 0]))
 
     def init_rooks(self):
         self.pieces.append(Rook(True, [0, 7]))

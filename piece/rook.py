@@ -17,9 +17,11 @@ class Rook(Piece):
     def get_all_moves(self):
         ret = []
         for x in range(0, 8):
-            ret.append([x, self.pos[1]])
+            if x != self.pos[0]:
+                ret.append([x, self.pos[1]])
         for y in range(0, 8):
-            ret.append([self.pos[0], y])
+            if y != self.pos[1]:
+                ret.append([self.pos[0], y])
         return ret
 
     # Returns which moves are possible considering the board state
