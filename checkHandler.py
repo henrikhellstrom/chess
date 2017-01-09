@@ -1,0 +1,1 @@
+#The Check class uses the gameState to calculate whether or not 
