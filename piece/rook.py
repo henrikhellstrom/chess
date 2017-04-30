@@ -12,6 +12,7 @@ class Rook(Piece):
         else:
             self.image = pygame.image.load(constants.image_dir + "/black_rook.png")
         self.pos = pos
+        self.type = "rook"
 
     #Returns which moves would be possible on an empty board
     def get_all_moves(self):
@@ -24,8 +25,8 @@ class Rook(Piece):
                 ret.append([self.pos[0], y])
         return ret
 
-    # Returns which moves are possible considering the board state
-    def get_possible_moves(self, pieces):
+    # Remove all moves blocked by movement and return the remaining moves
+    def remove_blocked_moves(self, pieces):
         moves = self.get_all_moves()
         if pieces != None:
             blocked_moves = []

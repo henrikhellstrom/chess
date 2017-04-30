@@ -12,6 +12,7 @@ class Pawn(Piece):
         else:
             self.image = pygame.image.load(constants.image_dir + "/black_pawn.png")
         self.pos = pos
+        self.type = "pawn"
 
     #Returns which moves would be possible on an empty board
     def get_all_moves(self):
@@ -32,8 +33,8 @@ class Pawn(Piece):
                 ret.append([self.pos[0], self.pos[1]+2])
         return ret
 
-    # Returns which moves are possible considering the board state
-    def get_possible_moves(self, pieces):
+    # Remove all moves blocked by movement and return the remaining moves
+    def remove_blocked_moves(self, pieces):
         moves_containing_piece = self.get_moves_containing_piece(pieces)
         moves_without_piece = self.get_moves_not_containing_piece(pieces)
         possible_moves = []
@@ -58,7 +59,7 @@ class Pawn(Piece):
         #Prevent pawns from being able to jump over pieces
         if len(possible_moves) == 1:
             if abs(possible_moves[0][1] - self.pos[1]) == 2:
-                return None
+                return []
         return possible_moves
 
     def get_moves_containing_piece(self, pieces):

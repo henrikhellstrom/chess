@@ -12,6 +12,7 @@ class Bishop(Piece):
         else:
             self.image = pygame.image.load(constants.image_dir + "/black_bishop.png")
         self.pos = pos
+        self.type = "bishop"
 
     #Returns which moves would be possible on an empty board
     def get_all_moves(self):
@@ -23,15 +24,16 @@ class Bishop(Piece):
                         ret.append([self.pos[0]+x, self.pos[1]+y])
         return ret
 
-    # Returns which moves are possible considering the board state
-    def get_possible_moves(self, pieces):
+    # Remove all moves blocked by movement and return the remaining moves
+    def remove_blocked_moves(self, pieces):
         ret = self.get_all_moves()
         moves_with_piece = self.get_moves_containing_piece(pieces)
         for move in moves_with_piece:
             for piece in pieces:
                 if piece.pos[0] == move[0] and piece.pos[1] == move[1]:
                     if piece.white == self.white:
-                        ret.remove(move)
+                        if ret.count(move) > 0:
+                            ret.remove(move)
             if move[0] > self.pos[0] and move[1] > self.pos[1]:
                 self.remove_below_right(ret, move)
             if move[0] < self.pos[0] and move[1] > self.pos[1]:

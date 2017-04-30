@@ -12,6 +12,7 @@ class Queen(Piece):
         else:
             self.image = pygame.image.load(constants.image_dir + "/black_queen.png")
         self.pos = pos
+        self.type = "queen"
 
     #Returns which moves would be possible on an empty board
     def get_all_moves(self):
@@ -32,8 +33,8 @@ class Queen(Piece):
                         ret.append(move)
         return ret
 
-    # Returns which moves are possible considering the board state
-    def get_possible_moves(self, pieces):
+    # Remove all moves blocked by movement and return the remaining moves
+    def remove_blocked_moves(self, pieces):
         ret = self.get_all_moves()
         moves_with_piece = self.get_moves_containing_piece(pieces)
         blocked_moves = []
@@ -119,7 +120,6 @@ class Queen(Piece):
         for move in all_moves:
             if move[0] < piece_move[0] and move[1] < piece_move[1]:
                 ret.append(move)
-                print "Removing: " + str(move[0]) + ", " + str(move[1])
         return ret
 
     def below_left_blocked(self, all_moves, piece_move):

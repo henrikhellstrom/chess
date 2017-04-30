@@ -12,6 +12,7 @@ class King(Piece):
         else:
             self.image = pygame.image.load(constants.image_dir + "/black_king.png")
         self.pos = pos
+        self.type = "king"
 
     #Returns which moves would be possible on an empty board
     def get_all_moves(self):
@@ -22,8 +23,8 @@ class King(Piece):
                     ret.append([self.pos[0]+x, self.pos[1]+y])
         return ret
 
-    # Returns which moves are possible considering the board state
-    def get_possible_moves(self, pieces):
+    # Remove all moves blocked by movement and return the remaining moves
+    def remove_blocked_moves(self, pieces):
         ret = self.get_all_moves()
 
         for piece in pieces:

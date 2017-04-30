@@ -55,6 +55,18 @@ class PieceHandler:
     def get_all_pieces(self):
         return self.pieces
 
+    def get_pieces_with_color(self, white):
+        ret = []
+        for piece in self.pieces:
+            if piece.white == white:
+                ret.append(piece)
+        return ret
+
+    def get_king(self, white):
+        for piece in self.pieces:
+            if piece.type == "king" and piece.white == white:
+                return piece
+
     # Returns a list of pieces placed at list of positions
     def get_pieces_at_positions(self, positions):
         pieces = []
@@ -73,3 +85,6 @@ class PieceHandler:
 
     def remove_piece(self, piece):
         self.pieces.remove(piece)
+
+    def add_piece(self, piece):
+        self.pieces.append(piece)

@@ -10,6 +10,7 @@ class Piece:
         self.pos = pos
         self.image = None
         self.white = white
+        self.type = "piece"
 
     def draw(self, surface):
         pixel_pos = [0, 0]
@@ -28,8 +29,8 @@ class Piece:
         moves = []
         return moves
 
-    #Returns which moves is possible considering the board state
-    def get_possible_moves(self, pieces):
+    # Remove all moves blocked by movement and return the remaining moves
+    def remove_blocked_moves(self, pieces):
         moves = []
         return moves
 
